@@ -35,8 +35,10 @@ class ClienteController extends Controller
         $carrito = session()->get('carrito', []);
 
         if (isset($carrito[$producto->id])) {
+
             $carrito[$producto->id]['cantidad']++;
         } else {
+
             $carrito[$producto->id] = [
                 'id' => $producto->id,
                 'nombre' => $producto->nombre,
@@ -49,8 +51,12 @@ class ClienteController extends Controller
 
         session()->put('mesa_id', $request->mesa_id);
 
-        return back()
-            ->with('success', 'Producto agregado');
+        return response()->json([
+            'success' => true,
+            'message' => 'Producto agregado',
+            'cantidad' => count($carrito),
+            'items' => collect($carrito)->sum('cantidad')
+        ]);
     }
 
     public function carrito()
@@ -149,5 +155,82 @@ class ClienteController extends Controller
                 'success',
                 'Pedido enviado a cocina'
             );
+    }
+
+    public function aumentarCantidad($id)
+    {
+        $carrito = session()->get('carrito', []);
+
+        if (isset($carrito[$id])) {
+            $carrito[$id]['cantidad']++;
+        }
+
+        session()->put('carrito', $carrito);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function disminuirCantidad($id)
+    {
+        $carrito = session()->get('carrito', []);
+
+        if (isset($carrito[$id])) {
+
+            $carrito[$id]['cantidad']--;
+
+            if ($carrito[$id]['cantidad'] <= 0) {
+                unset($carrito[$id]);
+            }
+        }
+
+        session()->put('carrito', $carrito);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function eliminarProducto($id)
+    {
+        $carrito = session()->get('carrito', []);
+
+        unset($carrito[$id]);
+
+        session()->put('carrito', $carrito);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function obtenerCarrito()
+    {
+        $carrito = session()->get('carrito', []);
+
+        $total = 0;
+
+        foreach ($carrito as $item) {
+            $total +=
+                $item['precio']
+                *
+                $item['cantidad'];
+        }
+
+        return response()->json([
+            'carrito' => array_values($carrito),
+            'total' => $total
+        ]);
+    }
+
+    public function carritoParcial()
+    {
+        $carrito = session()->get('carrito', []);
+
+        return view(
+            'cliente.partials.carrito',
+            compact('carrito')
+        );
     }
 }
