@@ -68,3 +68,28 @@ Route::get(
     '/admin/mesas-dashboard',
     [DashboardController::class, 'mesas']
 )->name('dashboard.mesas');
+
+Route::post(
+    '/carrito/aumentar/{id}',
+    [ClienteController::class, 'aumentarCantidad']
+)->name('carrito.aumentar');
+
+Route::post(
+    '/carrito/disminuir/{id}',
+    [ClienteController::class, 'disminuirCantidad']
+)->name('carrito.disminuir');
+
+Route::post(
+    '/carrito/eliminar/{id}',
+    [ClienteController::class, 'eliminarProducto']
+)->name('carrito.eliminar');
+
+Route::get(
+    '/carrito/json',
+    [ClienteController::class, 'obtenerCarrito']
+)->name('carrito.json');
+
+Route::get(
+    '/carrito/parcial',
+    [ClienteController::class, 'carritoParcial']
+)->name('carrito.parcial');
