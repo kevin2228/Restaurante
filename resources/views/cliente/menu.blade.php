@@ -26,8 +26,8 @@
         @endif
 
         <!--<a href="{{ route('carrito') }}" class="btn btn-primary mb-3">
-                                                                                                                                                                    Ver Pedido
-                                                                                                                                                                </a>-->
+                                                                                                                                                                                    Ver Pedido
+                                                                                                                                                                                </a>-->
         @foreach ($categorias as $categoria)
             <div class="card mb-3">
 
@@ -124,11 +124,109 @@
                     'contenido-carrito'
                 )
                 .innerHTML = html;
+
+            inicializarEventosCarrito();
+        }
+
+        function inicializarEventosCarrito() {
+            document.querySelectorAll('.aumentar-form')
+                .forEach(form => {
+
+                    form.addEventListener(
+                        'submit',
+                        async function(e) {
+                            e.preventDefault();
+
+                            let id =
+                                this.dataset.id;
+
+                            await fetch(
+                                '/carrito/aumentar/' + id, {
+                                    method: 'POST',
+
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]'
+                                        ).content,
+
+                                        'Accept': 'application/json'
+                                    }
+                                }
+                            );
+
+                            await actualizarCarrito();
+                        }
+                    );
+
+                });
+
+            document.querySelectorAll('.disminuir-form')
+                .forEach(form => {
+
+                    form.addEventListener(
+                        'submit',
+                        async function(e) {
+                            e.preventDefault();
+
+                            let id =
+                                this.dataset.id;
+
+                            await fetch(
+                                '/carrito/disminuir/' + id, {
+                                    method: 'POST',
+
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]'
+                                        ).content,
+
+                                        'Accept': 'application/json'
+                                    }
+                                }
+                            );
+
+                            await actualizarCarrito();
+                        }
+                    );
+
+                });
+
+            document.querySelectorAll('.eliminar-form')
+                .forEach(form => {
+
+                    form.addEventListener(
+                        'submit',
+                        async function(e) {
+                            e.preventDefault();
+
+                            let id =
+                                this.dataset.id;
+
+                            await fetch(
+                                '/carrito/eliminar/' + id, {
+                                    method: 'POST',
+
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]'
+                                        ).content,
+
+                                        'Accept': 'application/json'
+                                    }
+                                }
+                            );
+
+                            await actualizarCarrito();
+                        }
+                    );
+
+                });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
 
             actualizarCarrito();
+            inicializarEventosCarrito();
 
             document.querySelectorAll(
                 '.agregar-carrito-form'
@@ -226,102 +324,5 @@
             });
 
         });
-
-        // Aumentar cantidad
-        document.querySelectorAll('.aumentar-form')
-            .forEach(form => {
-
-                form.addEventListener(
-                    'submit',
-                    async function(e) {
-                        e.preventDefault();
-
-                        let id =
-                            this.dataset.id;
-
-                        await fetch(
-                            '/carrito/aumentar/' + id, {
-                                method: 'POST',
-
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content,
-
-                                    'Accept': 'application/json'
-                                }
-                            }
-                        );
-
-                        //location.reload();
-                        await actualizarCarrito();
-                    }
-                );
-
-            });
-
-        // Disminuir cantidad
-        document.querySelectorAll('.disminuir-form')
-            .forEach(form => {
-
-                form.addEventListener(
-                    'submit',
-                    async function(e) {
-                        e.preventDefault();
-
-                        let id =
-                            this.dataset.id;
-
-                        await fetch(
-                            '/carrito/disminuir/' + id, {
-                                method: 'POST',
-
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content,
-
-                                    'Accept': 'application/json'
-                                }
-                            }
-                        );
-
-                        await actualizarCarrito();
-                    }
-                );
-
-            });
-
-        // Eliminar producto
-        document.querySelectorAll('.eliminar-form')
-            .forEach(form => {
-
-                form.addEventListener(
-                    'submit',
-                    async function(e) {
-                        e.preventDefault();
-
-                        let id =
-                            this.dataset.id;
-
-                        await fetch(
-                            '/carrito/eliminar/' + id, {
-                                method: 'POST',
-
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content,
-
-                                    'Accept': 'application/json'
-                                }
-                            }
-                        );
-
-                        await actualizarCarrito();
-                    }
-                );
-
-            });
     </script>
 @endsection
