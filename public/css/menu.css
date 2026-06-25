@@ -1,0 +1,306 @@
+/**
+ * Menu.css
+ * Estilos para la vista de menú del cliente.
+ */
+
+/* ─── Reset & Base ─── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-hero p {
+    color: #8A8FA3;
+    font-size: 0.95rem;
+    margin: 0;
+    text-align: center;
+}
+
+.producto-img {
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: .75rem;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.producto-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* recorta sin deformar */
+    object-position: center;
+    /* centra el punto focal */
+    display: block;
+}
+
+body {
+    background: #F3F4F6;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color: #111827;
+}
+
+/* ─── Toast ─── */
+#mensaje-toast {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1100;
+    min-width: 260px;
+}
+
+#mensaje-toast .alert {
+    border-radius: 10px;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+    border: none;
+}
+
+/* ─── Page header ─── */
+.page-header {
+    background: #fff;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 1.5rem 0;
+    margin-bottom: 2.5rem;
+}
+
+.page-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #111827;
+}
+
+.page-subtitle {
+    font-size: 0.85rem;
+    color: #6B7280;
+    margin-top: 2px;
+}
+
+/* ─── Main layout ─── */
+.menu-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+}
+
+/* ─── Section heading ─── */
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+}
+
+.section-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+}
+
+/* Colores alternativos por categoría */
+.categoria-block:nth-child(2) .section-badge {
+    background: #EFF6FF;
+    color: #2563EB;
+    border-color: #BFDBFE;
+}
+
+.categoria-block:nth-child(3) .section-badge {
+    background: #FFF7ED;
+    color: #D97706;
+    border-color: #FDE68A;
+}
+
+.categoria-block:nth-child(4) .section-badge {
+    background: #FDF4FF;
+    color: #9333EA;
+    border-color: #E9D5FF;
+}
+
+.categoria-block:nth-child(5) .section-badge {
+    background: #FFF1F2;
+    color: #E11D48;
+    border-color: #FECDD3;
+}
+
+.categoria-block:nth-child(6) .section-badge {
+    background: #F0FDF4;
+    color: #16A34A;
+    border-color: #BBF7D0;
+}
+
+
+.section-divider {
+    flex: 1;
+    height: 1px;
+    background: #E5E7EB;
+}
+
+/* ─── Card grid ─── */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.producto-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    padding: 1.25rem 1.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: box-shadow .18s ease, transform .18s ease;
+}
+
+.producto-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+    transform: translateY(-2px);
+}
+
+.producto-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.35;
+}
+
+.producto-desc {
+    font-size: 0.82rem;
+    color: #6B7280;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.producto-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    gap: 0.75rem;
+}
+
+.producto-precio {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #059669;
+    letter-spacing: -0.3px;
+}
+
+/* ─── Botón agregar ─── */
+.btn-agregar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #111827;
+    color: #fff;
+    transition: background .15s, transform .12s;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.btn-agregar:hover {
+    background: #1F2937;
+    transform: scale(1.03);
+}
+
+.btn-agregar:active {
+    transform: scale(.98);
+}
+
+/* ─── FAB carrito ─── */
+.fab-carrito {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 999;
+    background: #111827;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.85rem 1.35rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .22);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    transition: background .15s, transform .15s;
+}
+
+.fab-carrito:hover {
+    background: #1F2937;
+    transform: scale(1.04);
+}
+
+.fab-carrito .badge {
+    background: #EF4444;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    min-width: 22px;
+    text-align: center;
+}
+
+/* ─── Offcanvas ─── */
+#carritoOffcanvas {
+    border-left: 1px solid #E5E7EB;
+}
+
+#carritoOffcanvas .offcanvas-header {
+    border-bottom: 1px solid #E5E7EB;
+    padding: 1.25rem 1.5rem;
+}
+
+#carritoOffcanvas .offcanvas-header h5 {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+#carritoOffcanvas .offcanvas-body {
+    padding: 1.25rem 1.5rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
